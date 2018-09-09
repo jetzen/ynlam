@@ -1,0 +1,15 @@
+{
+  "name": "ynlam",
+  "version": "1.0.0",
+  "description": "leave a message",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "hammerjs": "^2.0.8",
+    "sw-toolbox": "^3.6.0"
+  }
+}
