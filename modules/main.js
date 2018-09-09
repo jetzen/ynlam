@@ -227,6 +227,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }, 200);
             return;
         }
+
         editing = true;
         ppos.x = cpos.x;
         ppos.y = cpos.y;
@@ -235,7 +236,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         txtctr.style.left = (ppos.x - postWidth / 2 + 5) + 'px';
         // txtctr.style.width = postWidth + 'px';
         txtctr.style.display = 'block';
-        txt.focus();   
+        txt.focus();
     }
 
     lnkDoPost.onmousedown = function doPost(e) {
@@ -248,8 +249,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         let tooShort = txt.scrollHeight > txt.offsetHeight;
         let tooThin = txt.scrollWidth > txt.offsetWidth;
 
-        txt.style.height = txt.style.height || (txt.scrollHeight + 'px');
-        txt.style.width = txt.style.width || (txt.scrollWidth + 'px');
+        // explicitly set height/width to match current size
+        let rect = txt.getBoundingClientRect();
+
+        txt.style.height = (parseInt(rect.height) + 'px') || (txt.scrollHeight + 'px');
+        txt.style.width = (parseInt(rect.width) + 'px') || (txt.scrollWidth + 'px');
 
         while(!tooShort && parseInt(txt.style.height) > 50) {
             txt.style.height = parseInt(txt.style.height) - 10 + 'px';
@@ -268,7 +272,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         if(tooThin) {
             txt.style.width = parseInt(txt.style.width) + 10 + 'px';
         }
-        
+
         let height = parseInt(txt.style.height) + 20;
         let width = parseInt(txt.style.width) + 20;
         
@@ -363,7 +367,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         let targetId = (e.target || {}).id;
 
-        if (editing && targetId === txt.id) {
+        if (editing && (targetId === txt.id || targetId === 'lnkDoPost')) {
             return;
         }
 
